@@ -1,4 +1,4 @@
-package com.letsmakeadeal.client;
+package com.letsmakeadeal;
 
 public enum Reward {
     VACATION_TO_HAWAII("7 days Vacation to Hawaii"),
