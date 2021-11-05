@@ -31,13 +31,20 @@ class Host {
         startGame(); //initialize user with default reward (user.setReward)
         while (isPlaying) {
 //          displayStage(); //update of rewards done here
-          makeOffer();
-//          showResults();
+            makeOffer();
+
         }
         endGame();
     }
 
+    private void showResults() {
+        System.out.println("The reward you chose is:");
+        System.out.println(user.rewards.get(user.rewards.size() - 1));
+    }
+
     private void endGame() {
+        System.out.println("**********************************");
+        user.getRewards();
         System.out.println("EndGame as been called by the Host");
     }
 
@@ -47,7 +54,17 @@ class Host {
             System.out.println("Would you like to choose another prize?");
             System.out.println(" [Y]es [N]o");
             String choice = scanner.nextLine();
+
             if (choice.toUpperCase().equals("Y")) {
+
+                Reward reward = Reward.RUBBER_CHICKEN;
+                user.addReward(reward);
+                showResults();
+                if (reward.isZonk()) {
+                    this.isPlaying=false;
+                    break;
+                }
+
                 System.out.println("You will choose again!");
 //                promptUserForChoice();
 
@@ -71,10 +88,10 @@ class Host {
         System.out.println("user.setReward will be called from within Host.It will pass into it a randomized reward from the display");
         /*
          * Reward reward = getRewardFromDisplay();
-         * user.setRewards(reward) //sets initial reward for the user
-         *
-         *
          */
+        Reward reward = Reward.CASH_ONE_PRIZES;         // This will randomize
+        user.addReward(reward);                 //sets initial reward for the user
+
     }
 
     private void greetUser() {
@@ -85,7 +102,7 @@ class Host {
         System.out.println("Welcome! Let's Make A Deal!");
     }
 
-    private void showMenu(){
+    private void showMenu() {
         //start game menu
     }
 
