@@ -21,6 +21,7 @@ public class User {
     public void setName(String name) {
         this.name = name;
     }
+
     public void addReward(Reward reward) {
         // if statement here is dull reward then empty the array
         if (reward.isZonk()) {

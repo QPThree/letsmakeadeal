@@ -30,14 +30,8 @@ class Host {
 
     public void execute() {
         greetUser();
-//        showMenu();  called from function Jasmine wrote
-        startGame(); //initialize user with default reward (user.setReward)
-        while (isPlaying) {
-//          displayStage(); //update of rewards done here
-            makeOffer();
+        displayMenu();
 
-        }
-        endGame();
     }
 
     private void showResults(Reward reward) {
@@ -95,26 +89,28 @@ class Host {
     }
 
     //---- from jasmine ----
-//    public void displayMenu() {
-//        boolean quit = false;
-//        int selection = 0;
-//        while (!quit) {
-//            System.out.println("Are you ready to make a deal?");
-//            selection = scanner.nextInt();
-//            scanner.nextLine();
-//
-//            switch (selection) {
-//                case 1:
-//                    startGame();
-//                    break;
-//                case 2:
-//                    endGame();
-//                    break;
-//                quit = true;
-//                break;
-//            }
-//        }
-//    }
+    public void displayMenu() {
+        boolean quit = false;
+        int selection = 0;
+        while (!quit) {
+            System.out.println("Are you ready to make a deal?");
+            selection = scanner.nextInt();
+            scanner.nextLine();
+
+            switch (selection) {
+                case 1:
+                    startGame(); //initialize user with default reward (user.setReward)
+                    while (isPlaying) {
+                        makeOffer();
+                    }
+                    endGame();
+                    break;
+                case 2:
+                quit = true;
+                break;
+            }
+        }
+    }
 //    public void displayStage() {
 //        int usersSelection = 0;
 //        do {
