@@ -5,12 +5,16 @@ import com.letsmakeadeal.Display;
 import com.letsmakeadeal.Reward;
 import com.letsmakeadeal.User;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 import java.util.Scanner;
 
 class Host {
 
     // ---- FIELDS ----
-    private Display display;//host has-a display
+    private Display display = new Display();//host has-a display
+//    ArrayList<Reward> rewardsArray = new ArrayList<Reward>(List.of(Reward.values())); //refactor this to be coming from display class
     private User user; //host has-a user
     private boolean isPlaying = true;
     Scanner scanner = new Scanner(System.in);
@@ -22,12 +26,11 @@ class Host {
         this.user = new User();
     }
 
-
     // ---- BUSINESS METHODS ----
 
     public void execute() {
         greetUser();
-//        showMenu();
+//        showMenu();  called from function Jasmine wrote
         startGame(); //initialize user with default reward (user.setReward)
         while (isPlaying) {
 //          displayStage(); //update of rewards done here
@@ -37,15 +40,16 @@ class Host {
         endGame();
     }
 
-    private void showResults() {
+    private void showResults(Reward reward) {
         System.out.println("The reward you chose is:");
-        System.out.println(user.rewards.get(user.rewards.size() - 1));
+        System.out.println(reward.getName());
     }
 
     private void endGame() {
-        System.out.println("**********************************");
-        user.getRewards();
         System.out.println("EndGame as been called by the Host");
+        System.out.println("**********************************");
+        System.out.println("You final Rewards:");
+        user.getRewards();
     }
 
     public void makeOffer() {
@@ -56,18 +60,14 @@ class Host {
             String choice = scanner.nextLine();
 
             if (choice.toUpperCase().equals("Y")) {
-
-                Reward reward = Reward.RUBBER_CHICKEN;
+                Reward reward = display.getRandomReward();
                 user.addReward(reward);
-                showResults();
+                showResults(reward);
                 if (reward.isZonk()) {
-                    this.isPlaying=false;
+                    this.isPlaying = false;
                     break;
                 }
-
                 System.out.println("You will choose again!");
-//                promptUserForChoice();
-
                 validInput = true;
             } else if (choice.toUpperCase().equals("N")) {
                 System.out.println("Thanks for playing!");
@@ -77,19 +77,11 @@ class Host {
         }
     }
 
-    public Reward getRewardFromDisplay() {
-        /*
-         * return display.getRandomReward();
-         */
-        return null;
-    }
 
     private void startGame() {
         System.out.println("user.setReward will be called from within Host.It will pass into it a randomized reward from the display");
-        /*
-         * Reward reward = getRewardFromDisplay();
-         */
-        Reward reward = Reward.CASH_ONE_PRIZES;         // This will randomize
+
+        Reward reward = display.getRandomReward(); // This  is randomized
         user.addReward(reward);                 //sets initial reward for the user
 
     }
@@ -102,11 +94,61 @@ class Host {
         System.out.println("Welcome! Let's Make A Deal!");
     }
 
-    private void showMenu() {
-        //start game menu
+    //---- from jasmine ----
+//    public void displayMenu() {
+//        boolean quit = false;
+//        int selection = 0;
+//        while (!quit) {
+//            System.out.println("Are you ready to make a deal?");
+//            selection = scanner.nextInt();
+//            scanner.nextLine();
+//
+//            switch (selection) {
+//                case 1:
+//                    startGame();
+//                    break;
+//                case 2:
+//                    endGame();
+//                    break;
+//                quit = true;
+//                break;
+//            }
+//        }
+//    }
+//    public void displayStage() {
+//        int usersSelection = 0;
+//        do {
+//            boxChoices();
+//            switch (usersSelection) {
+//                case 1:
+//                    System.out.println("You chose box #1 and your Reward is " + randomRewards());
+//                    break;
+//                case 2:
+//                    System.out.println("You chose box #2 and your Reward is " + randomRewards());
+//                    break;
+//                case 3:
+//                    System.out.println("You chose box #3 and your Reward is " + randomRewards());
+//                    break;
+//                case 4:
+//                    System.out.println("You chose box #4 and your Reward is " + randomRewards());
+//                    break;
+//                case 5:
+//                    System.out.println("You chose box #5 and your Reward is " + randomRewards());
+//                default:
+//                    break;
+//            }
+//        }
+//    }
+
+    public static void boxChoices() {
+        System.out.println("\nPress ");
+        System.out.println("\t 1 - To choose box #1");
+        System.out.println("\t 2 - To choose box #2");
+        System.out.println("\t 3 - To choose box #3");
+        System.out.println("\t 4 - To choose box #4");
+        System.out.println("\t 5 - To choose box #5");
+
     }
-
-    // ---- GETTERS - SETTERS ----
-
-
 }
+
+// ---- GETTERS - SETTERS ----

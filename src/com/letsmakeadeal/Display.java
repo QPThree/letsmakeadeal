@@ -1,13 +1,32 @@
 package com.letsmakeadeal;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.Random;
+
 public class Display {
 
-    displayMenu();
+    public ArrayList<Reward> rewardsArray; //
 
-    startGame(); //initialize user with default reward
+    public Display(){
+        this.rewardsArray = new ArrayList<Reward>(List.of(Reward.values()));
+    }
 
-    displayStage(); //update of rewards done here
+    public static Reward randomRewards() {
+        Reward[] prizes = Reward.values();
+        int length = prizes.length;
+        int randPrizes = new Random().nextInt(length);
+        return prizes[randPrizes];
+    }
+    public ArrayList<Reward> getRewardsArray(){
+        return rewardsArray;
+    }
 
-    showResults();
+    public Reward getRandomReward(){
+        Collections.shuffle(getRewardsArray());
+        Reward reward = rewardsArray.remove(0);
+        return reward;
+    }
 
 }

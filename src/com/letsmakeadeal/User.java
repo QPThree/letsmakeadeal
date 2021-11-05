@@ -34,7 +34,7 @@ public class User {
 
     public void getRewards() {
         for (Reward reward:rewards) {
-            System.out.println(reward);
+            System.out.println(reward.getName());
         }
     }
 
