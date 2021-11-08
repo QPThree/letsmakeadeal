@@ -1,6 +1,7 @@
 package com.letsmakeadeal.client;
 
 
+import com.apps.util.Prompter;
 import com.letsmakeadeal.Display;
 import com.letsmakeadeal.Reward;
 import com.letsmakeadeal.User;
@@ -18,6 +19,7 @@ class Host {
     private User user; //host has-a user
     private boolean isPlaying = true;
     Scanner scanner = new Scanner(System.in);
+
 
     // ---- CONSTRUCTORS ----
 
@@ -40,8 +42,15 @@ class Host {
     }
 
     private void endGame() {
-        System.out.println("EndGame as been called by the Host");
-        System.out.println("**********************************");
+        System.out.println("\n" +
+                "  _______ _                 _           __                   _             _             _ \n" +
+                " |__   __| |               | |         / _|                 | |           (_)           | |\n" +
+                "    | |  | |__   __ _ _ __ | | _____  | |_ ___  _ __   _ __ | | __ _ _   _ _ _ __   __ _| |\n" +
+                "    | |  | '_ \\ / _` | '_ \\| |/ / __| |  _/ _ \\| '__| | '_ \\| |/ _` | | | | | '_ \\ / _` | |\n" +
+                "    | |  | | | | (_| | | | |   <\\__ \\ | || (_) | |    | |_) | | (_| | |_| | | | | | (_| |_|\n" +
+                "    |_|  |_| |_|\\__,_|_| |_|_|\\_\\___/ |_| \\___/|_|    | .__/|_|\\__,_|\\__, |_|_| |_|\\__, (_)\n" +
+                "                                                      | |             __/ |         __/ |  \n" +
+                "                                                      |_|            |___/         |___/   \n");
         System.out.println("You final Rewards:");
         user.getRewards();
     }
@@ -61,7 +70,7 @@ class Host {
                     this.isPlaying = false;
                     break;
                 }
-                System.out.println("You will choose again!");
+                System.out.println("Would you like to make another deal?!");
                 validInput = true;
             } else if (choice.toUpperCase().equals("N")) {
                 System.out.println("Thanks for playing!");
@@ -81,11 +90,16 @@ class Host {
     }
 
     private void greetUser() {
-        System.out.println();
-        System.out.println();
-        System.out.println("- - - - L E T ' S    M A K E    A    D E A L - - - -");
-        System.out.println();
-        System.out.println("Welcome! Let's Make A Deal!");
+        System.out.println("\n" +
+                "  _          _         __  __       _                     _____             _ _ \n" +
+                " | |        | |       |  \\/  |     | |            /\\     |  __ \\           | | |\n" +
+                " | |     ___| |_ ___  | \\  / | __ _| | _____     /  \\    | |  | | ___  __ _| | |\n" +
+                " | |    / _ \\ __/ __| | |\\/| |/ _` | |/ / _ \\   / /\\ \\   | |  | |/ _ \\/ _` | | |\n" +
+                " | |___|  __/ |_\\__ \\ | |  | | (_| |   <  __/  / ____ \\  | |__| |  __/ (_| | |_|\n" +
+                " |______\\___|\\__|___/ |_|  |_|\\__,_|_|\\_\\___| /_/    \\_\\ |_____/ \\___|\\__,_|_(_)\n" +
+                "                                                                                \n" +
+                "                                                                                \n");
+
     }
 
     //---- from jasmine ----
