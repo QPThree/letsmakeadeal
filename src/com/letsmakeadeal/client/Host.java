@@ -44,7 +44,7 @@ class Host {
         prompter.prompt(user.getName() + "'s final Rewards:");
         user.getRewards();
 
-       readFileFromResources("thanks");
+        readFileFromResources("thanks");
 
     }
     //
@@ -88,7 +88,7 @@ class Host {
         boolean quit = false;
         String selection;
         while (!quit) {
-            selection = prompter.prompt("Ready to Make a Deal? \n [y] Start \n [h] How-To \n [n] Quit", "[ynYNhH]", " Y for yes, N for N, H for How To Play");
+            selection = prompter.prompt("Ready to Make a Deal? \n [y] Start \n [h] How-To \n [n] Quit \n" , "[ynYNhH]", " Y for yes, N for N, H for How To Play");
             switch (selection.toUpperCase()) {
                 case "H":
                     readFileFromResources("how-to");
@@ -101,8 +101,8 @@ class Host {
                     endGame();
                     break;
                 case "N":
-                quit = true;
-                break;
+                    quit = true;
+                    break;
             }
         }
     }
