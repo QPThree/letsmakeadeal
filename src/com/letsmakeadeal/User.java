@@ -14,9 +14,7 @@ public class User {
     }
 
     public User() {
-
     }
-
 
     public void setName(String name) {
         this.name = name;
@@ -30,7 +28,7 @@ public class User {
         }
 
         this.rewards.add(reward);
-        System.out.println("Reward added to the user");
+        System.out.println(reward.getName() + " received by the user!");
     }
 
     public void getRewards() {
@@ -39,7 +37,7 @@ public class User {
         }
     }
 
-    private void clearRewards() {
+    public void clearRewards() {
         rewards.clear();
     }
 

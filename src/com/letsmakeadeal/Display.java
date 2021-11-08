@@ -7,7 +7,7 @@ import java.util.Random;
 
 public class Display {
 
-    public ArrayList<Reward> rewardsArray; //
+    public List<Reward> rewardsArray; //
 
     public Display(){
         this.rewardsArray = new ArrayList<Reward>(List.of(Reward.values()));
@@ -19,7 +19,7 @@ public class Display {
         int randPrizes = new Random().nextInt(length);
         return prizes[randPrizes];
     }
-    public ArrayList<Reward> getRewardsArray(){
+    public List<Reward> getRewardsArray(){
         return rewardsArray;
     }
 
