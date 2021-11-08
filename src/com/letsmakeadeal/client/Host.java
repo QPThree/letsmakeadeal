@@ -6,10 +6,14 @@ import com.letsmakeadeal.Display;
 import com.letsmakeadeal.Reward;
 import com.letsmakeadeal.User;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Scanner;
+import java.util.stream.Stream;
 
 class Host {
 
@@ -19,7 +23,7 @@ class Host {
     private User user; //host has-a user
     private boolean isPlaying = true;
     Scanner scanner = new Scanner(System.in);
-
+    private Prompter prompter= new Prompter(scanner);
 
     // ---- CONSTRUCTORS ----
 
@@ -34,6 +38,7 @@ class Host {
         greetUser();
         displayMenu();
 
+
     }
 
     private void showResults(Reward reward) {
@@ -42,25 +47,24 @@ class Host {
     }
 
     private void endGame() {
-        System.out.println("\n" +
-                "  _______ _                 _           __                   _             _             _ \n" +
-                " |__   __| |               | |         / _|                 | |           (_)           | |\n" +
-                "    | |  | |__   __ _ _ __ | | _____  | |_ ___  _ __   _ __ | | __ _ _   _ _ _ __   __ _| |\n" +
-                "    | |  | '_ \\ / _` | '_ \\| |/ / __| |  _/ _ \\| '__| | '_ \\| |/ _` | | | | | '_ \\ / _` | |\n" +
-                "    | |  | | | | (_| | | | |   <\\__ \\ | || (_) | |    | |_) | | (_| | |_| | | | | | (_| |_|\n" +
-                "    |_|  |_| |_|\\__,_|_| |_|_|\\_\\___/ |_| \\___/|_|    | .__/|_|\\__,_|\\__, |_|_| |_|\\__, (_)\n" +
-                "                                                      | |             __/ |         __/ |  \n" +
-                "                                                      |_|            |___/         |___/   \n");
-        System.out.println("You final Rewards:");
+
+        prompter.prompt("Your final Rewards:");
         user.getRewards();
+
+        Path path=Path.of("resources", "thanks.txt");
+        try (Stream<String> lines = Files.lines(path)) {
+            lines.forEach(line-> System.out.println(line));
+        } catch (IOException e) {
+            // do something or re-throw...
+        }
+
     }
 
     public void makeOffer() {
         boolean validInput = false;
         while (!validInput) {
-            System.out.println("Would you like to choose another prize?");
-            System.out.println(" [Y]es [N]o");
-            String choice = scanner.nextLine();
+            String choice = prompter.prompt("Would you like to choose another prize?","[ynYN]"," [Y]es [N]o");
+
 
             if (choice.toUpperCase().equals("Y")) {
                 Reward reward = display.getRandomReward();
@@ -82,49 +86,45 @@ class Host {
 
 
     private void startGame() {
-        System.out.println("user.setReward will be called from within Host.It will pass into it a randomized reward from the display");
-
         Reward reward = display.getRandomReward(); // This  is randomized
         user.addReward(reward);                 //sets initial reward for the user
 
     }
 
     private void greetUser() {
-        System.out.println("\n" +
-                "  _          _         __  __       _                     _____             _ _ \n" +
-                " | |        | |       |  \\/  |     | |            /\\     |  __ \\           | | |\n" +
-                " | |     ___| |_ ___  | \\  / | __ _| | _____     /  \\    | |  | | ___  __ _| | |\n" +
-                " | |    / _ \\ __/ __| | |\\/| |/ _` | |/ / _ \\   / /\\ \\   | |  | |/ _ \\/ _` | | |\n" +
-                " | |___|  __/ |_\\__ \\ | |  | | (_| |   <  __/  / ____ \\  | |__| |  __/ (_| | |_|\n" +
-                " |______\\___|\\__|___/ |_|  |_|\\__,_|_|\\_\\___| /_/    \\_\\ |_____/ \\___|\\__,_|_(_)\n" +
-                "                                                                                \n" +
-                "                                                                                \n");
+
+        Path path=Path.of("resources", "banner.txt");
+        try (Stream<String> lines = Files.lines(path)) {
+            lines.forEach(line-> System.out.println(line));
+        } catch (IOException e) {
+            // do something or re-throw...
+        }
+
 
     }
 
     //---- from jasmine ----
     public void displayMenu() {
         boolean quit = false;
-        int selection = 0;
+        String selection;
         while (!quit) {
-            System.out.println("Are you ready to make a deal?");
-            selection = scanner.nextInt();
-            scanner.nextLine();
+            selection =prompter.prompt("\"Are you ready to make a deal?\"", "[ynYN]", " Y for yes, N for N");
 
-            switch (selection) {
-                case 1:
+            switch (selection.toUpperCase()) {
+                case "Y":
                     startGame(); //initialize user with default reward (user.setReward)
                     while (isPlaying) {
                         makeOffer();
                     }
                     endGame();
                     break;
-                case 2:
+                case "N":
                 quit = true;
                 break;
             }
         }
     }
+
 //    public void displayStage() {
 //        int usersSelection = 0;
 //        do {
