@@ -6,7 +6,7 @@ import java.util.List;
 public class User {
 
     private String name;
-    public List<Reward> rewards=new ArrayList<>();
+    public List<Reward> rewards = new ArrayList<>();
 
     public User (String name,Reward reward){
        setName(name);
@@ -24,11 +24,9 @@ public class User {
         // if statement here is dull reward then empty the array
         if (reward.isZonk()) {
             clearRewards();
-            System.out.println("Rewards cleared");
         }
 
         this.rewards.add(reward);
-        System.out.println(reward.getName() + " received by the user!");
     }
 
     public void getRewards() {
