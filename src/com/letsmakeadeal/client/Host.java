@@ -51,8 +51,12 @@ class Host {
     public void makeOffer() {
         boolean validInput = false;
         while (!validInput) {
-            String choice = prompter.prompt("Would you like to risk your current winnings and choose another prize?","[ynYN]"," Please Select [Y]es [N]o");
+            String choice = prompter.prompt("Would you like to risk your current winnings and choose another prize? \n","[ynYN]"," Please Select [Y]es [N]o");
             if (choice.equalsIgnoreCase("Y")) {
+                readFileFromResources("curtain");
+                prompter.prompt("Behind this curtain has 5 treasure chest \n");
+                readFileFromResources("rewardselection");
+                prompter.prompt(" you can pick between 1-5 \n");
                 Reward reward = display.getRandomReward();
                 user.addReward(reward);
                 showResults(reward);
@@ -84,7 +88,7 @@ class Host {
         boolean quit = false;
         String selection;
         while (!quit) {
-            selection = prompter.prompt("Ready to Make a Deal? \n [y] Start \n [h] How-To \n [n] Quit", "[ynYNhH]", " Y for yes, N for N, H for How To Play");
+            selection = prompter.prompt("Ready to Make a Deal? \n [y] Start \n [h] How-To \n [n] Quit \n" , "[ynYNhH]", " Y for yes, N for N, H for How To Play");
             switch (selection.toUpperCase()) {
                 case "H":
                     readFileFromResources("how-to");
@@ -104,7 +108,7 @@ class Host {
     }
 
     public void readFileFromResources(String fileName){
-        Path path=Path.of("resources", fileName+".txt");
+        Path path=Path.of("letsmakeadeal/resources", fileName+".txt");
         try (Stream<String> lines = Files.lines(path)) {
             lines.forEach(line-> System.out.println(line));
         } catch (IOException e) {
