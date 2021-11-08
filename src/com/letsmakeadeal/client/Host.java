@@ -6,10 +6,14 @@ import com.letsmakeadeal.Display;
 import com.letsmakeadeal.Reward;
 import com.letsmakeadeal.User;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Scanner;
+import java.util.stream.Stream;
 
 class Host {
 
@@ -42,16 +46,23 @@ class Host {
     }
 
     private void endGame() {
-        System.out.println("\n" +
-                "  _______ _                 _           __                   _             _             _ \n" +
-                " |__   __| |               | |         / _|                 | |           (_)           | |\n" +
-                "    | |  | |__   __ _ _ __ | | _____  | |_ ___  _ __   _ __ | | __ _ _   _ _ _ __   __ _| |\n" +
-                "    | |  | '_ \\ / _` | '_ \\| |/ / __| |  _/ _ \\| '__| | '_ \\| |/ _` | | | | | '_ \\ / _` | |\n" +
-                "    | |  | | | | (_| | | | |   <\\__ \\ | || (_) | |    | |_) | | (_| | |_| | | | | | (_| |_|\n" +
-                "    |_|  |_| |_|\\__,_|_| |_|_|\\_\\___/ |_| \\___/|_|    | .__/|_|\\__,_|\\__, |_|_| |_|\\__, (_)\n" +
-                "                                                      | |             __/ |         __/ |  \n" +
-                "                                                      |_|            |___/         |___/   \n");
-        System.out.println("You final Rewards:");
+//        System.out.println("\n" +
+//                "  _______ _                 _           __                   _             _             _ \n" +
+//                " |__   __| |               | |         / _|                 | |           (_)           | |\n" +
+//                "    | |  | |__   __ _ _ __ | | _____  | |_ ___  _ __   _ __ | | __ _ _   _ _ _ __   __ _| |\n" +
+//                "    | |  | '_ \\ / _` | '_ \\| |/ / __| |  _/ _ \\| '__| | '_ \\| |/ _` | | | | | '_ \\ / _` | |\n" +
+//                "    | |  | | | | (_| | | | |   <\\__ \\ | || (_) | |    | |_) | | (_| | |_| | | | | | (_| |_|\n" +
+//                "    |_|  |_| |_|\\__,_|_| |_|_|\\_\\___/ |_| \\___/|_|    | .__/|_|\\__,_|\\__, |_|_| |_|\\__, (_)\n" +
+//                "                                                      | |             __/ |         __/ |  \n" +
+//                "                                                      |_|            |___/         |___/   \n");
+//        System.out.println("You final Rewards:");
+
+        Path path=Path.of("resources", "thanks.txt");
+        try (Stream<String> lines = Files.lines(path)) {
+            lines.forEach(line-> System.out.println(line));
+        } catch (IOException e) {
+            // do something or re-throw...
+        }
         user.getRewards();
     }
 
@@ -90,15 +101,22 @@ class Host {
     }
 
     private void greetUser() {
-        System.out.println("\n" +
-                "  _          _         __  __       _                     _____             _ _ \n" +
-                " | |        | |       |  \\/  |     | |            /\\     |  __ \\           | | |\n" +
-                " | |     ___| |_ ___  | \\  / | __ _| | _____     /  \\    | |  | | ___  __ _| | |\n" +
-                " | |    / _ \\ __/ __| | |\\/| |/ _` | |/ / _ \\   / /\\ \\   | |  | |/ _ \\/ _` | | |\n" +
-                " | |___|  __/ |_\\__ \\ | |  | | (_| |   <  __/  / ____ \\  | |__| |  __/ (_| | |_|\n" +
-                " |______\\___|\\__|___/ |_|  |_|\\__,_|_|\\_\\___| /_/    \\_\\ |_____/ \\___|\\__,_|_(_)\n" +
-                "                                                                                \n" +
-                "                                                                                \n");
+//        System.out.println("\n" +
+//                "  _          _         __  __       _                     _____             _ _ \n" +
+//                " | |        | |       |  \\/  |     | |            /\\     |  __ \\           | | |\n" +
+//                " | |     ___| |_ ___  | \\  / | __ _| | _____     /  \\    | |  | | ___  __ _| | |\n" +
+//                " | |    / _ \\ __/ __| | |\\/| |/ _` | |/ / _ \\   / /\\ \\   | |  | |/ _ \\/ _` | | |\n" +
+//                " | |___|  __/ |_\\__ \\ | |  | | (_| |   <  __/  / ____ \\  | |__| |  __/ (_| | |_|\n" +
+//                " |______\\___|\\__|___/ |_|  |_|\\__,_|_|\\_\\___| /_/    \\_\\ |_____/ \\___|\\__,_|_(_)\n" +
+//                "                                                                                \n" +
+//                "                                                                                \n");
+
+        Path path=Path.of("resources", "banner.txt");
+        try (Stream<String> lines = Files.lines(path)) {
+            lines.forEach(line-> System.out.println(line));
+        } catch (IOException e) {
+            // do something or re-throw...
+        }
 
     }
 
