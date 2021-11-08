@@ -47,7 +47,7 @@ class Host {
        readFileFromResources("thanks");
 
     }
-
+    //
     public void makeOffer() {
         boolean validInput = false;
         while (!validInput) {
