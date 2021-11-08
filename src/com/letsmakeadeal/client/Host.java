@@ -17,7 +17,7 @@ class Host {
     private Display display = new Display();//host has-a display
 //    ArrayList<Reward> rewardsArray = new ArrayList<Reward>(List.of(Reward.values())); //refactor this to be coming from display class
     private User user; //host has-a user
-    public boolean isPlaying = true;
+    private boolean isPlaying = true;
     Scanner scanner = new Scanner(System.in);
 
 
@@ -41,7 +41,7 @@ class Host {
         System.out.println(reward.getName());
     }
 
-    public void endGame() {
+    private void endGame() {
         System.out.println("\n" +
                 "  _______ _                 _           __                   _             _             _ \n" +
                 " |__   __| |               | |         / _|                 | |           (_)           | |\n" +
