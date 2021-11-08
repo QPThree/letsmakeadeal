@@ -3,7 +3,7 @@ package com.letsmakeadeal;
 public enum Reward {
     VACATION_TO_HAWAII("7 days Vacation to Hawaii",false),
     JEEP_WRANGLER("4X4 Off Road Jeep Wangler",false),
-    DETROIT_LIONS_NFL_TICKETS("DETROIT Lions home game NFL Tickets for 2",false),
+    DETROIT_LIONS_NFL_TICKETS("2 Tickets for the Detroit Lions",false),
     SEVEN_DAY_TRIP_TO_ITALY("7 days luxury trip to Italy",false),
     TWO_WEEK_TRIP_TO_DISNEY_WORLD("2 week trip to Disney World",false),
     CASH_ONE_PRIZES("$1,000",false),
@@ -12,7 +12,8 @@ public enum Reward {
     RUBBER_CHICKEN("Yellow Rubber Screaming Chicken",true),
     CASH_THREE_PRIZES("$1",true),
     CASH_FOUR_PRIZES(".50 cents",true),
-    RAISINS("Raisins",true);
+    RAISINS("Raisins",true),
+    FRIDGE_OF_KLONDIKE_BARS("Fridge full of Klondike Bars", false);
 
 
     // ---- FIELDS ----
