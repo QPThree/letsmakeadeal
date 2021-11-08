@@ -108,7 +108,7 @@ class Host {
     }
 
     public void readFileFromResources(String fileName){
-        Path path=Path.of("letsmakeadeal/resources", fileName+".txt");
+        Path path=Path.of("resources", fileName+".txt");
         try (Stream<String> lines = Files.lines(path)) {
             lines.forEach(line-> System.out.println(line));
         } catch (IOException e) {
