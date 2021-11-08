@@ -51,8 +51,12 @@ class Host {
     public void makeOffer() {
         boolean validInput = false;
         while (!validInput) {
-            String choice = prompter.prompt("Would you like to risk your current winnings and choose another prize?","[ynYN]"," Please Select [Y]es [N]o");
+            String choice = prompter.prompt("Would you like to risk your current winnings and choose another prize? \n","[ynYN]"," Please Select [Y]es [N]o");
             if (choice.equalsIgnoreCase("Y")) {
+                readFileFromResources("curtain");
+                prompter.prompt("Behind this curtain has 5 treasure chest \n");
+                readFileFromResources("rewardselection");
+                prompter.prompt(" you can pick between 1-5 \n");
                 Reward reward = display.getRandomReward();
                 user.addReward(reward);
                 showResults(reward);
