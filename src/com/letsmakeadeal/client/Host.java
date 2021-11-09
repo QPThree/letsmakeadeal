@@ -18,8 +18,8 @@ class Host {
     // ---- FIELDS ----
     private Display display = new Display();//host has-a display
     private User user; //host has-a user
-    private boolean isPlaying = true;
-    private Prompter prompter= new Prompter(new Scanner(System.in));
+    private boolean isPlaying;
+    private Prompter prompter = new Prompter(new Scanner(System.in));
 
     // ---- CONSTRUCTORS ----
 
@@ -35,47 +35,28 @@ class Host {
     }
 
     private void showResults(Reward reward) {
-        System.out.println("The reward you chose is:");
-        System.out.println(reward.getName() + "!");
+        System.out.println("The reward you chose is:" + reward.getName() + "!");
     }
 
     private void endGame() {
-
-        prompter.prompt(user.getName() + "'s final Rewards:");
-        user.getRewards();
-
+        this.isPlaying = false;
+        prompter.prompt(user.toString());
         readFileFromResources("thanks");
-
     }
-    //
+
     public void makeOffer() {
-        boolean validInput = false;
-        while (!validInput) {
-            String choice = prompter.prompt("Would you like to risk your current winnings and choose another prize? \n","[ynYN]"," Please Select [Y]es [N]o");
-            if (choice.equalsIgnoreCase("Y")) {
-                readFileFromResources("curtain");
-                prompter.prompt("Behind this curtain has 5 treasure chest \n");
-                readFileFromResources("rewardselection");
-                prompter.prompt(" you can pick between 1-5 \n");
-                Reward reward = display.getRandomReward();
-                user.addReward(reward);
-                showResults(reward);
-                if (reward.isZonk()) {
-                    this.isPlaying = false;
-                    break;
-                }
-                validInput = true;
-            } else if (choice.equalsIgnoreCase("N")) {
-                System.out.println("Thanks for playing!");
-                this.isPlaying = false;
-                validInput = true;
-            }
+        String choice = prompter.prompt("Would you like to risk your current winnings and choose another prize? \n", "[ynYN]", " Please Select [Y]es [N]o");
+        if (choice.equalsIgnoreCase("Y")) {
+            giveUserAnotherPrize();
+        } else if (choice.equalsIgnoreCase("N")) {
+            isPlaying = false;
         }
     }
 
     private void startGame() {
+        isPlaying = true;
         Reward reward = Reward.CASH_ONE_PRIZES;
-        String name = prompter.prompt("Enter your name: ");
+        String name = prompter.prompt("Enter your name: ", "[a-zA-Z]+", "Please enter a valid name");
         user = UserFactory.createUser(name, reward);
         prompter.prompt(user.getName() + ", your initial winning is: " + reward.getName());
     }
@@ -88,11 +69,8 @@ class Host {
         boolean quit = false;
         String selection;
         while (!quit) {
-            selection = prompter.prompt("Ready to Make a Deal? \n [y] Start \n [h] How-To \n [n] Quit \n" , "[ynYNhH]", " Y for yes, N for N, H for How To Play");
+            selection = prompter.prompt("Ready to Make a Deal? \n [y] Start \n [h] How-To \n [a] About this Project \n [q] Quit \n", "[yqYQhHaA]", " Y for yes, Q for Quit, H for How To Play");
             switch (selection.toUpperCase()) {
-                case "H":
-                    readFileFromResources("how-to");
-                    break;
                 case "Y":
                     startGame(); //initialize user with default reward (user.setReward)
                     while (isPlaying) {
@@ -100,23 +78,44 @@ class Host {
                     }
                     endGame();
                     break;
-                case "N":
+                case "H":
+                    readFileFromResources("how-to");
+                    break;
+                case "A":
+                    displayAboutUs();
+                    break;
+                case "Q":
                     quit = true;
                     break;
             }
         }
     }
 
-    public void readFileFromResources(String fileName){
-        Path path=Path.of("resources", fileName+".txt");
+    private void displayAboutUs() {
+        readFileFromResources("aboutus");
+    }
+
+    public void readFileFromResources(String fileName) {
+        Path path = Path.of("resources", fileName + ".txt");
         try (Stream<String> lines = Files.lines(path)) {
-            lines.forEach(line-> System.out.println(line));
+            lines.forEach(line -> System.out.println(line));
         } catch (IOException e) {
             System.out.println("Error reading file");
             e.getLocalizedMessage();
         }
     }
 
-    //commenting for change
+    public void giveUserAnotherPrize() {
+        readFileFromResources("curtain");
+        prompter.prompt("Behind this curtain has 5 treasure chest \n");
+        readFileFromResources("rewardselection");
+        prompter.prompt("Chooses a chest numbered 1-5 \n", "[12345]", "You must choose a number 1 thru 5");
+        Reward reward = display.getRandomReward();
+        user.addReward(reward);
+        showResults(reward);
+        if (reward.isZonk()) {
+            this.isPlaying = false;
+        }
+    }
 
 }
