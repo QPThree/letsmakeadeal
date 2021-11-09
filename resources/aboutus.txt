@@ -1,0 +1,17 @@
+
+   _   _                 _
+  /_\ | |__   ___  _   _| |_
+ //_\\| '_ \ / _ \| | | | __|
+/  _  \ |_) | (_) | |_| | |_
+\_/ \_/_.__/ \___/ \__,_|\__|
+
+
+
+This Project Created By:
+
+ Jasmine Meade
+ Zicheng Li
+ Quentin Young
+
+While attending TLG through their Software Apprenticeships.
+Many thanks to all helping us on our path.

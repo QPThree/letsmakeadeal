@@ -8,12 +8,12 @@ public class User {
     private String name;
     public List<Reward> rewards = new ArrayList<>();
 
-    public User (String name,Reward reward){
+    User (String name,Reward reward){
        setName(name);
        addReward(reward);
     }
 
-    public User() {
+    User() {
     }
 
     public void setName(String name) {
@@ -43,4 +43,8 @@ public class User {
         return name;
     }
 
+    @Override
+    public String toString() {
+        return name + "'s Rewards: " + rewards.toString();
+    }
 }
