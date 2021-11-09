@@ -17,7 +17,12 @@ public class MainFrame extends JFrame{
     private JPanel titlePanel, startButtonPanel, howButtonPanel, exitButtonPanel, infoTextPanel;
     private JLabel titleLabel;
     private Font titleFont = new Font("Times New Roman", Font.PLAIN,64);
+
+    private Frame frame;
+
+
     TitleScreenHandler titleScreenHandler;
+
 
 
 
@@ -43,12 +48,20 @@ public class MainFrame extends JFrame{
         setVisible(true);
         con = getContentPane();
 
+
         titlePanel = new JPanel();
         titlePanel.setBounds(150,100,600,150);
-        titlePanel.setBackground(Color.blue);
-        titleLabel = new JLabel("Let's Make A Deal!");
-        titleLabel.setForeground(Color.white);
-        titleLabel.setFont(titleFont);
+        titlePanel.setBackground(Color.yellow);
+
+
+        titleLabel = new JLabel();
+//        titleLabel.setForeground(Color.white);
+//        titleLabel.setFont(titleFont);
+        titlePanel.add(titleLabel);
+        ImageIcon labelIcon=new ImageIcon("resources/LetsMakeDeal.png");
+        titleLabel.setIcon(labelIcon);
+
+
 
         startButtonPanel = new JPanel();
         startButtonPanel.setBounds(350,450,200,50);
