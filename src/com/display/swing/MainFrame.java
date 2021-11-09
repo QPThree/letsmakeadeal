@@ -1,22 +1,19 @@
 package com.display.swing;
-import com.letsmakeadeal.client.Host;
 
 import java.awt.BorderLayout;
 
-import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.image.BufferedImage;
-import java.io.File;
 
 public class MainFrame extends JFrame{
 
     private JTextArea textArea;
-    public JButton dealButton,noDealButton,startButton, howButton, aboutButton, exitButton ;
+    public TextField userNameTextField = new TextField(20);
+    public JButton dealButton,noDealButton,startButton, howButton, aboutButton, exitButton, continueButton;
     private Container con;
-    private JPanel titlePanel, startButtonPanel, howButtonPanel, aboutButtonPanel, exitButtonPanel, infoTextPanel, mainTextPanel;
+    private JPanel titlePanel, startButtonPanel, howButtonPanel, aboutButtonPanel, exitButtonPanel, continueButtonPanel, mainTextPanel;
     private JLabel titleLabel;
     private Font titleFont = new Font("Times New Roman", Font.PLAIN,64);
     TitleScreenHandler titleScreenHandler;
@@ -83,8 +80,15 @@ public class MainFrame extends JFrame{
         exitButton.setForeground(Color.white);
 
         mainTextPanel = new JPanel();
-        mainTextPanel.setBounds(75, 250, 600, 300);
+        mainTextPanel.setBounds(75, 600, 400, 75);
         mainTextPanel.setVisible(false);
+
+        continueButtonPanel = new JPanel();
+        continueButtonPanel.setBounds(350,550,200,75);
+        continueButton = new JButton("Continue");
+        continueButton.setBackground(Color.green);
+        continueButtonPanel.setVisible(false);
+
 
 
 
@@ -99,7 +103,10 @@ public class MainFrame extends JFrame{
         exitButtonPanel.add(exitButton);
         con.add(exitButtonPanel);
         mainTextPanel.add(textArea);
+        mainTextPanel.add(userNameTextField);
         con.add(mainTextPanel);
+        continueButtonPanel.add(continueButton);
+        con.add(continueButtonPanel);
 
         con.add(titlePanel);
 
@@ -113,6 +120,7 @@ public class MainFrame extends JFrame{
         exitButton.setVisible(false);
 //        infoTextPanel.setVisible(false);
         mainTextPanel.setVisible(true);
+        continueButtonPanel.setVisible(true);
 //        infoTextPanel = new JPanel();
 //        infoTextPanel.setBounds(100,100,600,250);
 //        infoTextPanel.setBackground(Color.blue);
@@ -122,6 +130,7 @@ public class MainFrame extends JFrame{
     public void writeToTextArea(String string){
         textArea.setText(string);
     }
+
     public void clearTextArea(){
         textArea.setText("");
     }
