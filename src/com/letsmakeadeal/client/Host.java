@@ -30,6 +30,8 @@ public class Host {
         this.display = new Display();
         mainFrame.aboutButton.addActionListener(e -> displayAboutUs());
         mainFrame.startButton.addActionListener(e -> execute());
+        mainFrame.exitButton.addActionListener(e -> System.exit(0));
+        mainFrame.continueButton.addActionListener(e -> startGame());
     }
 
     // ---- BUSINESS METHODS ----
@@ -62,15 +64,16 @@ public class Host {
     private void startGame() {
         isPlaying = true;
         Reward reward = Reward.CASH_ONE_PRIZES;
-        String name = prompter.prompt("Enter your name: ", "[a-zA-Z]+", "Please enter a valid name");
-        mainFrame.writeToTextArea(name);
-        user = UserFactory.createUser(name, reward);
-        prompter.prompt(user.getName() + ", your initial winning is: " + reward.getName());
+//        String name = prompter.prompt("Enter your name: ", "[a-zA-Z]+", "Please enter a valid name");
+        user = UserFactory.createUser(mainFrame.userNameTextField.getText(), reward);
+        mainFrame.userNameTextField.setVisible(false);
+//        prompter.prompt(user.getName() + ", your initial winning is: " + reward.getName());
+        mainFrame.writeToTextArea(user.getName() + ", your initial winning is: " + reward.getName());
     }
 
     private void greetUser() {
-        mainFrame.writeToTextArea("User is greeted now");
-        readFileFromResources("banner");
+        mainFrame.writeToTextArea(readFileFromResources("banner"));
+        mainFrame.writeToTextArea("Welcome user!");
     }
 
     public void displayMenu() {
@@ -100,8 +103,9 @@ public class Host {
     }
 
     private void displayAboutUs() {
-        mainFrame.writeToTextArea(readFileFromResources("aboutus"));
-        readFileFromResources("aboutus");
+        mainFrame.writeToTextArea("By: Zed Jasmine and Quen");
+//        mainFrame.writeToTextArea(readFileFromResources("aboutus"));
+//        readFileFromResources("aboutus");
     }
 
     public String readFileFromResources(String fileName) {
@@ -128,5 +132,4 @@ public class Host {
             this.isPlaying = false;
         }
     }
-
 }
