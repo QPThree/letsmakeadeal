@@ -12,8 +12,5 @@ public class StarterFrame {
                 new MainFrame();           }
         });
 
-
     }
-
-
 }

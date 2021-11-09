@@ -2,6 +2,7 @@ package com.letsmakeadeal.client;
 
 
 import com.apps.util.Prompter;
+import com.display.swing.MainFrame;
 import com.letsmakeadeal.Display;
 import com.letsmakeadeal.Reward;
 import com.letsmakeadeal.User;
@@ -11,27 +12,32 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.Scanner;
+import java.util.concurrent.atomic.AtomicReference;
 import java.util.stream.Stream;
 
-class Host {
+public class Host {
 
     // ---- FIELDS ----
     private Display display = new Display();//host has-a display
     private User user; //host has-a user
     private boolean isPlaying;
     private Prompter prompter = new Prompter(new Scanner(System.in));
+    MainFrame mainFrame = new MainFrame();
 
     // ---- CONSTRUCTORS ----
 
-    Host() {
+    public Host() {
         this.display = new Display();
+        mainFrame.aboutButton.addActionListener(e -> displayAboutUs());
+        mainFrame.startButton.addActionListener(e -> execute());
     }
 
     // ---- BUSINESS METHODS ----
 
     public void execute() {
+        mainFrame.createGameScreen();
         greetUser();
-        displayMenu();
+//        displayMenu();
     }
 
     private void showResults(Reward reward) {
@@ -57,11 +63,13 @@ class Host {
         isPlaying = true;
         Reward reward = Reward.CASH_ONE_PRIZES;
         String name = prompter.prompt("Enter your name: ", "[a-zA-Z]+", "Please enter a valid name");
+        mainFrame.writeToTextArea(name);
         user = UserFactory.createUser(name, reward);
         prompter.prompt(user.getName() + ", your initial winning is: " + reward.getName());
     }
 
     private void greetUser() {
+        mainFrame.writeToTextArea("User is greeted now");
         readFileFromResources("banner");
     }
 
@@ -92,17 +100,20 @@ class Host {
     }
 
     private void displayAboutUs() {
+        mainFrame.writeToTextArea(readFileFromResources("aboutus"));
         readFileFromResources("aboutus");
     }
 
-    public void readFileFromResources(String fileName) {
+    public String readFileFromResources(String fileName) {
         Path path = Path.of("resources", fileName + ".txt");
+        AtomicReference<String> result = new AtomicReference<>("");
         try (Stream<String> lines = Files.lines(path)) {
-            lines.forEach(line -> System.out.println(line));
+            lines.forEach(line -> result.set(result + line));
         } catch (IOException e) {
             System.out.println("Error reading file");
             e.getLocalizedMessage();
         }
+        return result.get();
     }
 
     public void giveUserAnotherPrize() {

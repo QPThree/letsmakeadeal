@@ -14,7 +14,6 @@ public class Main {
         //starting point here
 
         Host host = new Host();
-        host.execute();
 
 //        Main main = new Main();
 //

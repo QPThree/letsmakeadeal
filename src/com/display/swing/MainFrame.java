@@ -1,4 +1,6 @@
 package com.display.swing;
+import com.letsmakeadeal.client.Host;
+
 import java.awt.BorderLayout;
 
 import javax.imageio.ImageIO;
@@ -12,12 +14,14 @@ import java.io.File;
 public class MainFrame extends JFrame{
 
     private JTextArea textArea;
-    private JButton dealButton,noDealButton,startButton, howButton, aboutButton, exitButton ;
+    public JButton dealButton,noDealButton,startButton, howButton, aboutButton, exitButton ;
     private Container con;
     private JPanel titlePanel, startButtonPanel, howButtonPanel, aboutButtonPanel, exitButtonPanel, infoTextPanel, mainTextPanel;
     private JLabel titleLabel;
     private Font titleFont = new Font("Times New Roman", Font.PLAIN,64);
     TitleScreenHandler titleScreenHandler;
+
+//    private Host host = new Host();
 
 
 
@@ -56,7 +60,6 @@ public class MainFrame extends JFrame{
         startButton = new JButton("Start Game");
         startButton.setBackground(Color.black);
         startButton.setForeground(Color.white);
-        startButton.addActionListener(titleScreenHandler);
 
         howButtonPanel = new JPanel();
         howButtonPanel.setBounds(350,500,200,50);
@@ -71,17 +74,17 @@ public class MainFrame extends JFrame{
         aboutButton = new JButton("About");
         aboutButton.setBackground(Color.white);
         aboutButton.setForeground(Color.red);
-        aboutButton.addActionListener(new AboutUsHandler());
 
         exitButtonPanel = new JPanel();
         exitButtonPanel.setBounds(350,550,200,50);
-        exitButtonPanel.setBackground(Color.BLACK);
+        exitButtonPanel.setBackground(Color.yellow);
         exitButton = new JButton("Exit");
         exitButton.setBackground(Color.ORANGE);
         exitButton.setForeground(Color.white);
 
         mainTextPanel = new JPanel();
-        mainTextPanel.setBounds(350, 800, 400, 100);
+        mainTextPanel.setBounds(75, 250, 600, 300);
+        mainTextPanel.setVisible(false);
 
 
 
@@ -101,29 +104,32 @@ public class MainFrame extends JFrame{
         con.add(titlePanel);
 
     }
+
     public void createGameScreen(){
         titlePanel.setVisible(false);
         startButtonPanel.setVisible(false);
-        infoTextPanel = new JPanel();
-        infoTextPanel.setBounds(100,100,600,250);
-        infoTextPanel.setBackground(Color.blue);
-        con.add(infoTextPanel);
-
-
-
+        aboutButtonPanel.setVisible(false);
+        howButtonPanel.setVisible(false);
+        exitButton.setVisible(false);
+//        infoTextPanel.setVisible(false);
+        mainTextPanel.setVisible(true);
+//        infoTextPanel = new JPanel();
+//        infoTextPanel.setBounds(100,100,600,250);
+//        infoTextPanel.setBackground(Color.blue);
+//        con.add(infoTextPanel);
     }
+
+    public void writeToTextArea(String string){
+        textArea.setText(string);
+    }
+    public void clearTextArea(){
+        textArea.setText("");
+    }
+
     public class TitleScreenHandler implements ActionListener{
         @Override
         public void actionPerformed(ActionEvent e) {
             createGameScreen();
-        }
-    }
-
-    public class AboutUsHandler implements ActionListener{
-
-        @Override
-        public void actionPerformed(ActionEvent e) {
-            textArea.append("Action Registered");
         }
     }
 }
