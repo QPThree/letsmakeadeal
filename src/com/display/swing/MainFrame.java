@@ -12,9 +12,9 @@ import java.io.File;
 public class MainFrame extends JFrame{
 
     private JTextArea textArea;
-    private JButton dealButton,noDealButton,startButton, howButton, exitButton ;
+    private JButton dealButton,noDealButton,startButton, howButton, aboutButton, exitButton ;
     private Container con;
-    private JPanel titlePanel, startButtonPanel, howButtonPanel, exitButtonPanel, infoTextPanel;
+    private JPanel titlePanel, startButtonPanel, howButtonPanel, aboutButtonPanel, exitButtonPanel, infoTextPanel, mainTextPanel;
     private JLabel titleLabel;
     private Font titleFont = new Font("Times New Roman", Font.PLAIN,64);
     TitleScreenHandler titleScreenHandler;
@@ -65,6 +65,14 @@ public class MainFrame extends JFrame{
         howButton.setBackground(Color.RED);
         howButton.setForeground(Color.white);
 
+        aboutButtonPanel = new JPanel();
+        aboutButtonPanel.setBounds(350,600,200,50);
+        aboutButtonPanel.setBackground(Color.GREEN);
+        aboutButton = new JButton("About");
+        aboutButton.setBackground(Color.white);
+        aboutButton.setForeground(Color.red);
+        aboutButton.addActionListener(new AboutUsHandler());
+
         exitButtonPanel = new JPanel();
         exitButtonPanel.setBounds(350,550,200,50);
         exitButtonPanel.setBackground(Color.BLACK);
@@ -72,14 +80,23 @@ public class MainFrame extends JFrame{
         exitButton.setBackground(Color.ORANGE);
         exitButton.setForeground(Color.white);
 
+        mainTextPanel = new JPanel();
+        mainTextPanel.setBounds(350, 800, 400, 100);
+
+
+
 
         titlePanel.add(titleLabel);
         startButtonPanel.add(startButton);
         con.add(startButtonPanel);
         howButtonPanel.add(howButton);
         con.add(howButtonPanel);
+        aboutButtonPanel.add(aboutButton);
+        con.add(aboutButtonPanel);
         exitButtonPanel.add(exitButton);
         con.add(exitButtonPanel);
+        mainTextPanel.add(textArea);
+        con.add(mainTextPanel);
 
         con.add(titlePanel);
 
@@ -99,6 +116,14 @@ public class MainFrame extends JFrame{
         @Override
         public void actionPerformed(ActionEvent e) {
             createGameScreen();
+        }
+    }
+
+    public class AboutUsHandler implements ActionListener{
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            textArea.append("Action Registered");
         }
     }
 }
