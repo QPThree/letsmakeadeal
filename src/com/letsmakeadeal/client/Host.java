@@ -8,6 +8,7 @@ import com.letsmakeadeal.Reward;
 import com.letsmakeadeal.User;
 import com.letsmakeadeal.UserFactory;
 
+import javax.swing.*;
 import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -24,6 +25,7 @@ public class Host {
     private boolean isPlaying;
     private Prompter prompter = new Prompter(new Scanner(System.in));
     MainFrame mainFrame = new MainFrame();
+
 
     // ---- CONSTRUCTORS ----
 
@@ -55,8 +57,10 @@ public class Host {
             for (ActionListener al : mainFrame.continueButton.getActionListeners()) {
                 mainFrame.continueButton.removeActionListener(al);
             }
-
+            mainFrame.clearDisplayPanel();
+            mainFrame.displayOpenedChest();
             mainFrame.continueButton.addActionListener(e -> makeOffer());
+
 //        System.out.println("The reward you chose is:" + reward.getName() + "!");
         }
     }
@@ -70,7 +74,10 @@ public class Host {
 
     public void makeOffer() {
 //        String choice = prompter.prompt("Would you like to risk your current winnings and choose another prize? \n", "[ynYN]", " Please Select [Y]es [N]o");
+        mainFrame.clearDisplayPanel();
+        mainFrame.displayCurtain();
         mainFrame.writeToTextArea("Would you like to risk your current winnings\n and choose another prize?");
+
 //        if (choice.equalsIgnoreCase("Y")) {
 //            giveUserAnotherPrize();
 //        } else if (choice.equalsIgnoreCase("N")) {
@@ -146,10 +153,11 @@ public class Host {
     }
 
     public void giveUserAnotherPrize() {
-        readFileFromResources("curtain");
+//        readFileFromResources("curtain");
 //        prompter.prompt("Behind this curtain has 5 treasure chest \n");
         mainFrame.writeToTextArea("Behind this curtain has 5 treasure chest\nHere are the prizes listed Press [continue] to open");
-
+        mainFrame.clearDisplayPanel();
+        mainFrame.displayClosedChest();
         for( ActionListener al : mainFrame.continueButton.getActionListeners() ) {
             mainFrame.continueButton.removeActionListener( al );
         }
