@@ -1,6 +1,9 @@
 package com.letsmakeadeal.client;
 
 import com.apps.util.SplashApp;
+import com.display.swing.MainFrame;
+
+import javax.swing.*;
 
 
 public class Main {
@@ -13,7 +16,12 @@ public class Main {
     public static void main(String[] args) {
         //starting point here
 
-        Host host = new Host();
+//        Host host = new Host();
+        SwingUtilities.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                new Host() ;}
+        });
 
 //        Main main = new Main();
 //

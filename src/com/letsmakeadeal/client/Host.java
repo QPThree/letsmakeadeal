@@ -80,7 +80,8 @@ public class Host {
         boolean quit = false;
         String selection;
         while (!quit) {
-            selection = prompter.prompt("Ready to Make a Deal? \n [y] Start \n [h] How-To \n [a] About this Project \n [q] Quit \n", "[yqYQhHaA]", " Y for yes, Q for Quit, H for How To Play");
+            selection = prompter.prompt("Ready to Make a Deal? \n [y] Start \n [h] How-To \n " +
+                    "[a] About this Project \n [q] Quit \n", "[yqYQhHaA]", " Y for yes, Q for Quit, H for How To Play");
             switch (selection.toUpperCase()) {
                 case "Y":
                     startGame(); //initialize user with default reward (user.setReward)
@@ -103,10 +104,12 @@ public class Host {
     }
 
     private void displayAboutUs() {
-        mainFrame.writeToTextArea("By: Zed Jasmine and Quen");
-//        mainFrame.writeToTextArea(readFileFromResources("aboutus"));
+        mainFrame.gameInfoScreen();
+//        mainFrame.writeTOTextField("By: Zed Jasmine and Quen");
+        mainFrame.writeToTextField(readFileFromResources("aboutus"));
 //        readFileFromResources("aboutus");
     }
+
 
     public String readFileFromResources(String fileName) {
         Path path = Path.of("resources", fileName + ".txt");
