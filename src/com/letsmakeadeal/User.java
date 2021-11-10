@@ -6,14 +6,11 @@ import java.util.List;
 public class User {
 
     private String name;
-    public List<Reward> rewards = new ArrayList<>();
+    private List<Reward> rewards = new ArrayList<>();
 
     User (String name,Reward reward){
        setName(name);
        addReward(reward);
-    }
-
-    User() {
     }
 
     public void setName(String name) {
@@ -29,10 +26,8 @@ public class User {
         this.rewards.add(reward);
     }
 
-    public void getRewards() {
-        for (Reward reward:rewards) {
-            System.out.println(reward.getName());
-        }
+    public List<Reward> getRewards() {
+        return rewards;
     }
 
     public void clearRewards() {

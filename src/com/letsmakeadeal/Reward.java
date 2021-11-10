@@ -40,4 +40,9 @@ public enum Reward {
     public void setZonk(boolean zonk) {
         this.zonk = zonk;
     }
+
+    @Override
+    public String toString() {
+        return getName();
+    }
 }
