@@ -1,11 +1,9 @@
 package com.display.swing;
 
 import java.awt.BorderLayout;
-
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+
 
 public class MainFrame extends JFrame {
 
@@ -14,8 +12,8 @@ public class MainFrame extends JFrame {
     public JTextField textField;
     public JButton dealButton, noDealButton, startButton, howButton, aboutButton, exitButton, continueButton,mainButton;
     private Container con;
-    private JPanel titlePanel, menuPanel, subPanel, mainTextPanel,displayPanel;
-    private JLabel titleLabel;
+    public JPanel titlePanel, menuPanel, subPanel, mainTextPanel,displayPanel;
+    public JLabel titleLabel,chestClosedLabel,chestOpenedLabel,curtainLabel;
 
     public MainFrame() {
         super("Let's Make A Deal");
@@ -104,9 +102,10 @@ public class MainFrame extends JFrame {
         subPanel.setVisible(false);
 
         displayPanel=new JPanel();
-        displayPanel.setBounds(150, 300, 600, 50);
-        displayPanel.setBackground(Color.white);
+        displayPanel.setBounds(150, 200, 600, 150);
+        displayPanel.setBackground(Color.yellow);
         displayPanel.setVisible(false);
+
 
         dealButton = new JButton("Let's Make the Deal !");
         dealButton.setPreferredSize(new Dimension(200, 20));
@@ -158,7 +157,6 @@ public class MainFrame extends JFrame {
     public void createGameScreen() {
         titlePanel.setVisible(true);
         menuPanel.setVisible(false);
-
         mainTextPanel.setVisible(true);
         subPanel.setVisible(true);
         displayPanel.setVisible(true);
@@ -192,4 +190,34 @@ public class MainFrame extends JFrame {
         textField.setText(string);
     }
 
+
+    public void clearDisplayPanel(){
+        displayPanel.removeAll();
+    }
+
+    public void displayCurtain(){
+        curtainLabel=new JLabel();
+        displayPanel.add(curtainLabel);
+        ImageIcon curtainIcon = new ImageIcon("resources/curtain1.png");
+        displayPanel.add(curtainLabel);
+        curtainLabel.setIcon(curtainIcon);
+    }
+
+
+    public void displayOpenedChest(){
+        chestOpenedLabel=new JLabel();
+        displayPanel.add(chestOpenedLabel);
+        ImageIcon chestOpened = new ImageIcon("resources/openedchest.png");
+        displayPanel.add(chestOpenedLabel);
+        chestOpenedLabel.setIcon(chestOpened);
+    }
+
+    public void displayClosedChest() {
+        chestClosedLabel = new JLabel();
+        displayPanel.remove(curtainLabel);
+        displayPanel.add(chestClosedLabel);
+        ImageIcon chestClosed = new ImageIcon("resources/closedchest.png");
+        displayPanel.add(chestClosedLabel);
+        chestClosedLabel.setIcon(chestClosed);
+    }
 }
