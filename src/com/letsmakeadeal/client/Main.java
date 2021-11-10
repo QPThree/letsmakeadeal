@@ -1,8 +1,5 @@
 package com.letsmakeadeal.client;
 
-import com.apps.util.SplashApp;
-import com.display.swing.MainFrame;
-
 import javax.swing.*;
 
 
