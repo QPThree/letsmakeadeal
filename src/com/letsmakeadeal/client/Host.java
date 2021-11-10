@@ -8,6 +8,7 @@ import com.letsmakeadeal.Reward;
 import com.letsmakeadeal.User;
 import com.letsmakeadeal.UserFactory;
 
+import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -32,6 +33,8 @@ public class Host {
         mainFrame.startButton.addActionListener(e -> execute());
         mainFrame.exitButton.addActionListener(e -> System.exit(0));
         mainFrame.continueButton.addActionListener(e -> startGame());
+        mainFrame.dealButton.addActionListener(e -> giveUserAnotherPrize());
+        mainFrame.noDealButton.addActionListener(e -> endGame());
     }
 
     // ---- BUSINESS METHODS ----
@@ -43,22 +46,36 @@ public class Host {
     }
 
     private void showResults(Reward reward) {
-        System.out.println("The reward you chose is:" + reward.getName() + "!");
+        mainFrame.writeToTextArea("The reward you chose is:" + reward.getName() + "!\n Select [continue]");
+
+        if (reward.isZonk()) {
+            this.isPlaying = false;
+            endGame();
+        }else {
+            for (ActionListener al : mainFrame.continueButton.getActionListeners()) {
+                mainFrame.continueButton.removeActionListener(al);
+            }
+
+            mainFrame.continueButton.addActionListener(e -> makeOffer());
+//        System.out.println("The reward you chose is:" + reward.getName() + "!");
+        }
     }
 
     private void endGame() {
         this.isPlaying = false;
-        prompter.prompt(user.toString());
+//        prompter.prompt(user.toString());
+        mainFrame.writeToTextArea("Thanks for Playing\n"+user.toString());
         readFileFromResources("thanks");
     }
 
     public void makeOffer() {
-        String choice = prompter.prompt("Would you like to risk your current winnings and choose another prize? \n", "[ynYN]", " Please Select [Y]es [N]o");
-        if (choice.equalsIgnoreCase("Y")) {
-            giveUserAnotherPrize();
-        } else if (choice.equalsIgnoreCase("N")) {
-            isPlaying = false;
-        }
+//        String choice = prompter.prompt("Would you like to risk your current winnings and choose another prize? \n", "[ynYN]", " Please Select [Y]es [N]o");
+        mainFrame.writeToTextArea("Would you like to risk your current winnings\n and choose another prize?");
+//        if (choice.equalsIgnoreCase("Y")) {
+//            giveUserAnotherPrize();
+//        } else if (choice.equalsIgnoreCase("N")) {
+//            isPlaying = false;
+//        }
     }
 
     private void startGame() {
@@ -69,6 +86,11 @@ public class Host {
         mainFrame.userNameTextField.setVisible(false);
 //        prompter.prompt(user.getName() + ", your initial winning is: " + reward.getName());
         mainFrame.writeToTextArea(user.getName() + ", your initial winning is: " + reward.getName());
+
+        for( ActionListener al : mainFrame.continueButton.getActionListeners() ) {
+            mainFrame.continueButton.removeActionListener( al );
+        }
+        mainFrame.continueButton.addActionListener(e -> makeOffer());
     }
 
     private void greetUser() {
@@ -125,14 +147,19 @@ public class Host {
 
     public void giveUserAnotherPrize() {
         readFileFromResources("curtain");
-        prompter.prompt("Behind this curtain has 5 treasure chest \n");
-        readFileFromResources("rewardselection");
-        prompter.prompt("Chooses a chest numbered 1-5 \n", "[12345]", "You must choose a number 1 thru 5");
+//        prompter.prompt("Behind this curtain has 5 treasure chest \n");
+        mainFrame.writeToTextArea("Behind this curtain has 5 treasure chest\nHere are the prizes listed Press [continue] to open");
+
+        for( ActionListener al : mainFrame.continueButton.getActionListeners() ) {
+            mainFrame.continueButton.removeActionListener( al );
+        }
+
+    readFileFromResources("rewardselection");
+//        prompter.prompt("Chooses a chest numbered 1-5 \n", "[12345]", "You must choose a number 1 thru 5");
         Reward reward = display.getRandomReward();
         user.addReward(reward);
-        showResults(reward);
-        if (reward.isZonk()) {
-            this.isPlaying = false;
-        }
+        mainFrame.continueButton.addActionListener(e -> showResults( reward ));
+//        showResults(reward);
+
     }
 }
