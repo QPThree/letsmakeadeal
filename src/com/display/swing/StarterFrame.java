@@ -9,10 +9,8 @@ public class StarterFrame {
         SwingUtilities.invokeLater(new Runnable() {
             @Override
             public void run() {
-               new MainFrame();}
+                new MainFrame();           }
         });
-
     }
-
 
 }
