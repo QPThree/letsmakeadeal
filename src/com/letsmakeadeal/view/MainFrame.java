@@ -102,6 +102,7 @@ public class MainFrame extends JFrame {
         subPanel = createJPanel(150, 550, 600, 75, Color.yellow, false);
         displayPanel = createJPanel(150, 200, 600, 150, Color.yellow, false);
         userRewardsPanel = createJPanel(175, 650, 600, 25, Color.yellow, false);
+        backButtonSubPanel = createJPanel(150,550,600,75,Color.yellow,false);
     }
 
     private void setAllButtons() {
@@ -113,6 +114,7 @@ public class MainFrame extends JFrame {
         continueButton = createJButton("Continue", 150, 20, false, Color.white, Color.green);
         noDealButton = createJButton("Walk Away", 200,20, false, Color.white, Color.red);
         mainButton = createJButton("Main Menu", 200, 20, false, Color.white, Color.blue);
+        backButton = createJButton("Back",200, 20, false, Color.white, Color.blue);
     }
 
 
