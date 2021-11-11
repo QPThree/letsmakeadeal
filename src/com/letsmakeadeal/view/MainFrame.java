@@ -2,6 +2,8 @@ package com.letsmakeadeal.view;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 
 public class MainFrame extends JFrame {
@@ -10,10 +12,11 @@ public class MainFrame extends JFrame {
     private JTextArea textArea = new JTextArea(20, 20);
     private JTextArea userRewardsText = new JTextArea();
     public JTextField textField = new JTextField();
-    public JButton dealButton, noDealButton, startButton, howButton, aboutButton, exitButton, continueButton, mainButton;
+    public JButton dealButton, noDealButton, startButton, howButton, aboutButton, exitButton, continueButton, mainButton,backButton;
     private Container con;
-    public JPanel titlePanel, menuPanel, subPanel, mainTextPanel, displayPanel, userRewardsPanel;
-    public JLabel titleLabel, chestClosedLabel, chestOpenedLabel, curtainLabel;
+    public JPanel titlePanel, menuPanel, subPanel, mainTextPanel, displayPanel, userRewardsPanel,backButtonSubPanel;
+    public JLabel titleLabel, chestClosedLabel, chestOpenedLabel, curtainLabel, aboutLabel;
+
 
     public MainFrame() {
         super("Let's Make A Deal");
@@ -23,14 +26,22 @@ public class MainFrame extends JFrame {
     public void setUpMainMenu() {
         setFrameConfigs();
         con = getContentPane();
+
         setAllButtons();
         setAllPanels();
-
-
         // ---- LABELS ADDED TO PANELS ----
         titleLabel = new JLabel();
+        aboutLabel = new JLabel("This Project Created By:\n" +
+                "\n" +
+                " Jasmine Meade\n" +
+                " Zicheng Li\n" +
+                " Quentin Young\n" +
+                "\n" +
+                "\n" +
+                "While attending TLG through their Software Apprenticeships.\n" +
+                "Many thanks to all helping us on our path.\n");
         titlePanel.add(titleLabel);
-        ImageIcon labelIcon = new ImageIcon("resources/LetsMakeDeal.png");
+        ImageIcon labelIcon = new ImageIcon("letsmakeadeal/resources/LetsMakeDeal.png");
         titleLabel.setIcon(labelIcon);
 
         userNameTextField.setFont(new Font("Arial", Font.BOLD, 15));
@@ -41,8 +52,9 @@ public class MainFrame extends JFrame {
         userRewardsText.setBorder(BorderFactory.createLineBorder(Color.LIGHT_GRAY, 1));
 
 
-        exitButton.addActionListener(e -> System.exit(0));
         mainButton.addActionListener(e -> showMainMenu());
+        backButton.addActionListener(e -> showMainMenu());
+        howButton.addActionListener(e -> gameDirections());
 
 
         titlePanel.add(titleLabel);
@@ -54,19 +66,23 @@ public class MainFrame extends JFrame {
         subPanel.add(continueButton);
         subPanel.add(noDealButton);
         subPanel.add(mainButton);
+        backButtonSubPanel.add(backButton);
         mainTextPanel.add(textArea);
 //        mainTextPanel.add(userNameTextField); //old way. text field wasnt showing up
         displayPanel.add(userNameTextField); // new way. Text field in display panel
         userRewardsPanel.add(userRewardsText);
+        mainTextPanel.add(aboutLabel);
 
 
 
         con.add(subPanel);
+        con.add(backButtonSubPanel);
         con.add(menuPanel);
         con.add(displayPanel);
         con.add(mainTextPanel);
         con.add(titlePanel);
         con.add(userRewardsPanel);
+
     }
 
     private void setFrameConfigs() {
@@ -107,6 +123,7 @@ public class MainFrame extends JFrame {
         displayPanel.setVisible(false);
         userRewardsPanel.setVisible(false);
 
+
     }
 
     public void createGameScreen() {
@@ -117,17 +134,33 @@ public class MainFrame extends JFrame {
         displayPanel.setVisible(true);
         userRewardsPanel.setVisible(true);
         writeToUserRewardsPanel("");
+
     }
 
     public void gameInfoScreen() {
         mainTextPanel.remove(textArea);
         mainTextPanel.remove(userNameTextField);
         mainTextPanel.setBounds(250, 300, 400, 100);
-        mainTextPanel.add(textField);
+        //mainTextPanel.add(textField);
+        //textField.add(aboutLabel);
         titlePanel.setVisible(true);
         menuPanel.setVisible(false);
         mainTextPanel.setVisible(true);
-        subPanel.setVisible(true);
+        subPanel.setVisible(false);
+        backButtonSubPanel.setVisible(true);
+        aboutLabel.setVisible(true);
+
+
+    }
+    public void gameDirections(){
+        mainTextPanel.setBounds(250, 300, 400, 100);
+        mainTextPanel.setVisible(true);
+        backButtonSubPanel.setVisible(true);
+        menuPanel.setVisible(false);
+        mainTextPanel.setVisible(true);
+        subPanel.setVisible(false);
+        backButtonSubPanel.setVisible(true);
+        aboutLabel.setVisible(true);
     }
 
     public void writeToUserRewardsPanel(String string){
@@ -198,4 +231,5 @@ public class MainFrame extends JFrame {
 
         return product;
     }
+
 }

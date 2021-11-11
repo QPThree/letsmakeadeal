@@ -9,6 +9,9 @@ import com.letsmakeadeal.User;
 import com.letsmakeadeal.UserFactory;
 
 import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+
 import java.awt.event.ActionListener;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -24,19 +27,30 @@ class Host {
     private MainFrame mainFrame = new MainFrame();
 
 
+
     // ---- CONSTRUCTORS ----
 
     Host() {
-        this.display = new Display();
+        this.display = new Display()
+
+
         setAllActionListeners();
+
     }
 
-    // ---- BUSINESS METHODS ----
+    // ---- BUSINESS METHODS ---
 
     public void execute() {
         mainFrame.createGameScreen();
         greetUser();
 //        displayMenu();
+    }
+    public void processExitButton() {
+
+        //System.out.println( "Exit button clicked..." );
+        //CreditScreen cs = new CreditScreen();
+
+        //System.exit( 0 );
     }
 
     // ---- START GAME FLOW ----
@@ -134,6 +148,7 @@ class Host {
         }
         return aboutUs;
     }
+
 
 
 }
