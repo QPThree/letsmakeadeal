@@ -2,6 +2,8 @@ package com.letsmakeadeal.view;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 
 public class MainFrame extends JFrame {
@@ -10,10 +12,11 @@ public class MainFrame extends JFrame {
     private JTextArea textArea = new JTextArea(20, 20);
     private JTextArea userRewardsText = new JTextArea();
     public JTextField textField = new JTextField();
-    public JButton dealButton, noDealButton, startButton, howButton, aboutButton, exitButton, continueButton, mainButton;
+    public JButton dealButton, noDealButton, startButton, howButton, aboutButton, exitButton, continueButton, mainButton,backButton;
     private Container con;
-    public JPanel titlePanel, menuPanel, subPanel, mainTextPanel, displayPanel, userRewardsPanel;
-    public JLabel titleLabel, chestClosedLabel, chestOpenedLabel, curtainLabel;
+    public JPanel titlePanel, menuPanel, subPanel, mainTextPanel, displayPanel, userRewardsPanel,backButtonSubPanel;
+    public JLabel titleLabel, chestClosedLabel, chestOpenedLabel, curtainLabel, aboutLabel;
+
 
     public MainFrame() {
         super("Let's Make A Deal");
@@ -32,28 +35,39 @@ public class MainFrame extends JFrame {
         con = getContentPane();
 
         // ---- BUTTONS ----
-        startButton = createJButton("Start Game", 150, 50, false, Color.black, Color.white);
+        startButton = createJButton("Start Game", 150, 50, false, Color.red, Color.white);
         dealButton = createJButton("Let's Make the Deal !", 200, 20, false, Color.yellow, Color.black);
         howButton = createJButton("How To Play", 150, 50, false, Color.red, Color.white);
-        aboutButton = createJButton("About", 150, 50, false, Color.red, Color.red);
-        exitButton = createJButton("Exit", 150, 50, false, Color.ORANGE, Color.ORANGE);
+        aboutButton = createJButton("About", 150, 50, false, Color.red, Color.white);
+        exitButton = createJButton("Exit", 150, 50, false, Color.red, Color.white);
         continueButton = createJButton("Continue", 150, 20, false, Color.white, Color.green);
         noDealButton = createJButton("Walk Away", 200,20, false, Color.white, Color.red);
         mainButton = createJButton("Main Menu", 200, 20, false, Color.white, Color.blue);
+        backButton = createJButton("Back",200, 20, false, Color.white, Color.blue);
 
 
         // ---- PANELS ----
         titlePanel = createJPanel(200,50,500,150,Color.yellow, true);
         menuPanel = createJPanel(350, 300, 175, 225, Color.yellow, true);
-        mainTextPanel = createJPanel(250, 450, 400, 75, Color.lightGray, false);
-        subPanel = createJPanel(150, 550, 600, 75, Color.yellow, false);
+        mainTextPanel = createJPanel(250, 600, 600, 600, Color.lightGray, false);
+        subPanel = createJPanel(250, 550, 600, 75, Color.yellow, false);
+        backButtonSubPanel = createJPanel(150,550,600,75,Color.yellow,false);
         displayPanel = createJPanel(150, 200, 600, 150, Color.yellow, false);
         userRewardsPanel = createJPanel(175, 650, 600, 25, Color.orange, false);
 
         // ---- LABELS ADDED TO PANELS ----
         titleLabel = new JLabel();
+        aboutLabel = new JLabel("This Project Created By:\n" +
+                "\n" +
+                " Jasmine Meade\n" +
+                " Zicheng Li\n" +
+                " Quentin Young\n" +
+                "\n" +
+                "\n" +
+                "While attending TLG through their Software Apprenticeships.\n" +
+                "Many thanks to all helping us on our path.\n");
         titlePanel.add(titleLabel);
-        ImageIcon labelIcon = new ImageIcon("resources/LetsMakeDeal.png");
+        ImageIcon labelIcon = new ImageIcon("letsmakeadeal/resources/LetsMakeDeal.png");
         titleLabel.setIcon(labelIcon);
 
         userNameTextField.setFont(new Font("Arial", Font.BOLD, 15));
@@ -61,8 +75,9 @@ public class MainFrame extends JFrame {
         userNameTextField.setBackground(Color.black);
 
 
-        exitButton.addActionListener(e -> System.exit(0));
         mainButton.addActionListener(e -> showMainMenu());
+        backButton.addActionListener(e -> showMainMenu());
+        howButton.addActionListener(e -> gameDirections());
 
 
         titlePanel.add(titleLabel);
@@ -74,16 +89,20 @@ public class MainFrame extends JFrame {
         subPanel.add(continueButton);
         subPanel.add(noDealButton);
         subPanel.add(mainButton);
+        backButtonSubPanel.add(backButton);
         mainTextPanel.add(textArea);
         mainTextPanel.add(userNameTextField);
         userRewardsPanel.add(userRewardsText);
+        mainTextPanel.add(aboutLabel);
 
         con.add(subPanel);
+        con.add(backButtonSubPanel);
         con.add(menuPanel);
         con.add(displayPanel);
         con.add(mainTextPanel);
         con.add(titlePanel);
         con.add(userRewardsPanel);
+
     }
 
 
@@ -92,6 +111,7 @@ public class MainFrame extends JFrame {
         mainTextPanel.setVisible(false);
         subPanel.setVisible(false);
         displayPanel.setVisible(false);
+
 
     }
 
@@ -103,17 +123,33 @@ public class MainFrame extends JFrame {
         displayPanel.setVisible(true);
         userRewardsPanel.setVisible(true);
         writeToUserRewardsPanel("");
+
     }
 
     public void gameInfoScreen() {
         mainTextPanel.remove(textArea);
         mainTextPanel.remove(userNameTextField);
         mainTextPanel.setBounds(250, 300, 400, 100);
-        mainTextPanel.add(textField);
+        //mainTextPanel.add(textField);
+        //textField.add(aboutLabel);
         titlePanel.setVisible(true);
         menuPanel.setVisible(false);
         mainTextPanel.setVisible(true);
-        subPanel.setVisible(true);
+        subPanel.setVisible(false);
+        backButtonSubPanel.setVisible(true);
+        aboutLabel.setVisible(true);
+
+
+    }
+    public void gameDirections(){
+        mainTextPanel.setBounds(250, 300, 400, 100);
+        mainTextPanel.setVisible(true);
+        backButtonSubPanel.setVisible(true);
+        menuPanel.setVisible(false);
+        mainTextPanel.setVisible(true);
+        subPanel.setVisible(false);
+        backButtonSubPanel.setVisible(true);
+        aboutLabel.setVisible(true);
     }
 
     public void writeToUserRewardsPanel(String string){
@@ -183,4 +219,5 @@ public class MainFrame extends JFrame {
         product.setVisible(visible);
         return product;
     }
+
 }

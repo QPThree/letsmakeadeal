@@ -8,6 +8,9 @@ import com.letsmakeadeal.Reward;
 import com.letsmakeadeal.User;
 import com.letsmakeadeal.UserFactory;
 
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -23,24 +26,34 @@ public class Host {
     private MainFrame mainFrame = new MainFrame();
 
 
+
     // ---- CONSTRUCTORS ----
 
     public Host() {
         this.display = new Display();
         mainFrame.aboutButton.addActionListener(e -> displayAboutUs());
         mainFrame.startButton.addActionListener(e -> execute());
-        mainFrame.exitButton.addActionListener(e -> System.exit(0));
+        mainFrame.exitButton.addActionListener(e -> processExitButton());
         mainFrame.continueButton.addActionListener(e -> startGame());
         mainFrame.dealButton.addActionListener(e -> giveUserAnotherPrize());
         mainFrame.noDealButton.addActionListener(e -> endGame());
+
+
     }
 
-    // ---- BUSINESS METHODS ----
+    // ---- BUSINESS METHODS ---
 
     public void execute() {
         mainFrame.createGameScreen();
         greetUser();
 //        displayMenu();
+    }
+    public void processExitButton() {
+
+        //System.out.println( "Exit button clicked..." );
+        //CreditScreen cs = new CreditScreen();
+
+        //System.exit( 0 );
     }
 
     // ---- START GAME FLOW ----
@@ -128,6 +141,7 @@ public class Host {
         }
         return aboutUs;
     }
+
 
 
 }
