@@ -47,7 +47,6 @@ public class MainFrame extends JFrame {
 
         mainButton.addActionListener(e -> showMainMenu());
         backButton.addActionListener(e -> showMainMenu());
-        howButton.addActionListener(e -> gameDirections());
 
         titlePanel.add(titleLabel);
         menuPanel.add(startButton);
@@ -74,7 +73,7 @@ public class MainFrame extends JFrame {
         con.add(mainTextPanel);
         con.add(titlePanel);
         con.add(userRewardsPanel);
-
+        setVisible(true);
     }
 
     private void setFrameConfigs() {
@@ -158,17 +157,6 @@ public class MainFrame extends JFrame {
         titlePanel.setVisible(true);
         menuPanel.setVisible(false);
         mainTextPanel.setVisible(false);
-        subPanel.setVisible(false);
-        backButtonSubPanel.setVisible(true);
-        aboutLabel.setVisible(true);
-    }
-
-    public void gameDirections() {
-        mainTextPanel.setBounds(250, 300, 400, 100);
-        mainTextPanel.setVisible(true);
-        backButtonSubPanel.setVisible(true);
-        menuPanel.setVisible(false);
-        mainTextPanel.setVisible(true);
         subPanel.setVisible(false);
         backButtonSubPanel.setVisible(true);
         aboutLabel.setVisible(true);
