@@ -4,7 +4,8 @@ How to Play
 Inspired by the Classic Game Show "Let's Make A Deal!"
 
 1. The User will choose to start a game and will be awarded an initial winnings.
-2. Each turn, the User will be given one of two options: walk away with their current winnings, or risk it all to gain an additional prize.
+2. Each turn, the User will be given one of two options: walk away with their current winnings,
+   or risk it all to gain an additional prize.
 3. If the user unboxes a "Zonk" prize, then they lose all of their winnings!
 4. What prizes await!? How much are you willing to risk!?
 

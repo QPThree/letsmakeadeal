@@ -2,20 +2,20 @@ package com.letsmakeadeal.view;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 
 public class MainFrame extends JFrame {
 
-    public TextField userNameTextField = new TextField("Enter Name",20);
+    public TextField userNameTextField = new TextField("Enter Name", 20);
     private JTextArea textArea = new JTextArea(20, 20);
     private JTextArea userRewardsText = new JTextArea();
     public JTextArea textField = new JTextArea();
-    public JButton dealButton, noDealButton, startButton, howButton, aboutButton, exitButton, continueButton, mainButton,backButton;
+    public JButton dealButton, noDealButton, startButton, howButton, aboutButton,
+            exitButton, continueButton, mainButton, backButton;
     private Container con;
-    public JPanel titlePanel, menuPanel, subPanel, mainTextPanel, displayPanel, userRewardsPanel,backButtonSubPanel;
-    public JLabel titleLabel, chestClosedLabel, chestOpenedLabel, curtainLabel, aboutLabel;
+    public JPanel titlePanel, menuPanel, subPanel, mainTextPanel, displayPanel,
+            userRewardsPanel, backButtonSubPanel, aboutTextPanel, howTextPanel;
+    public JLabel titleLabel, chestClosedLabel, chestOpenedLabel, curtainLabel, aboutLabel, howLabel;
 
 
     public MainFrame() {
@@ -32,8 +32,9 @@ public class MainFrame extends JFrame {
         // ---- LABELS ADDED TO PANELS ----
         titleLabel = new JLabel();
         aboutLabel = new JLabel();
+        howLabel = new JLabel();
         titlePanel.add(titleLabel);
-        ImageIcon labelIcon = new ImageIcon("letsmakeadeal/resources/LetsMakeDeal.png");
+        ImageIcon labelIcon = new ImageIcon("resources/LetsMakeDeal.png");
         titleLabel.setIcon(labelIcon);
 
         userNameTextField.setFont(new Font("Arial", Font.BOLD, 15));
@@ -48,7 +49,6 @@ public class MainFrame extends JFrame {
         backButton.addActionListener(e -> showMainMenu());
         howButton.addActionListener(e -> gameDirections());
 
-
         titlePanel.add(titleLabel);
         menuPanel.add(startButton);
         menuPanel.add(howButton);
@@ -60,13 +60,13 @@ public class MainFrame extends JFrame {
         subPanel.add(mainButton);
         backButtonSubPanel.add(backButton);
         mainTextPanel.add(textArea);
-//        mainTextPanel.add(userNameTextField); //old way. text field wasnt showing up
-        displayPanel.add(userNameTextField); // new way. Text field in display panel
+        displayPanel.add(userNameTextField);
         userRewardsPanel.add(userRewardsText);
-        mainTextPanel.add(aboutLabel);
+        aboutTextPanel.add(aboutLabel);
+        howTextPanel.add(howLabel);
 
-
-
+        con.add(howTextPanel);
+        con.add(aboutTextPanel);
         con.add(subPanel);
         con.add(backButtonSubPanel);
         con.add(menuPanel);
@@ -88,25 +88,27 @@ public class MainFrame extends JFrame {
     }
 
     private void setAllPanels() {
-        titlePanel = createJPanel(200,50,500,150,Color.yellow, true);
+        titlePanel = createJPanel(200, 50, 500, 150, Color.yellow, true);
         menuPanel = createJPanel(350, 300, 175, 225, Color.yellow, true);
-        mainTextPanel = createJPanel(250, 450, 400, 75, Color.YELLOW, false);
+        mainTextPanel = createJPanel(250, 450, 400, 75, Color.yellow, false);
         subPanel = createJPanel(150, 550, 600, 75, Color.yellow, false);
         displayPanel = createJPanel(150, 200, 600, 150, Color.yellow, false);
-        userRewardsPanel = createJPanel(175, 650, 600, 25, Color.yellow, false);
-        backButtonSubPanel = createJPanel(150,550,600,75,Color.yellow,false);
+        userRewardsPanel = createJPanel(150, 625, 600, 25, Color.yellow, false);
+        backButtonSubPanel = createJPanel(150, 550, 600, 75, Color.yellow, false);
+        aboutTextPanel = createJPanel(250, 450, 400, 75, Color.YELLOW, false);
+        howTextPanel = createJPanel(250, 450, 400, 75, Color.YELLOW, false);
     }
 
     private void setAllButtons() {
-        startButton = createJButton("Start Game", 150, 50, false, Color.black, Color.white);
+        startButton = createJButton("Start Game", 150, 50, false, Color.WHITE, Color.GREEN);
         dealButton = createJButton("Let's Make the Deal !", 200, 20, false, Color.yellow, Color.black);
-        howButton = createJButton("How To Play", 150, 50, false, Color.red, Color.white);
-        aboutButton = createJButton("About", 150, 50, false, Color.red, Color.red);
-        exitButton = createJButton("Exit", 150, 50, false, Color.ORANGE, Color.ORANGE);
+        howButton = createJButton("How To Play", 150, 50, false, Color.WHITE, Color.BLUE);
+        aboutButton = createJButton("About", 150, 50, false, Color.WHITE, Color.BLACK);
+        exitButton = createJButton("Exit", 150, 50, false, Color.WHITE, Color.RED);
         continueButton = createJButton("Continue", 150, 20, false, Color.white, Color.green);
-        noDealButton = createJButton("Walk Away", 200,20, false, Color.white, Color.red);
+        noDealButton = createJButton("Walk Away", 200, 20, false, Color.white, Color.red);
         mainButton = createJButton("Main Menu", 200, 20, false, Color.white, Color.blue);
-        backButton = createJButton("Back",200, 20, false, Color.white, Color.blue);
+        backButton = createJButton("Back", 200, 20, false, Color.white, Color.blue);
     }
 
 
@@ -116,11 +118,13 @@ public class MainFrame extends JFrame {
         subPanel.setVisible(false);
         displayPanel.setVisible(false);
         userRewardsPanel.setVisible(false);
-
-
+        aboutTextPanel.setVisible(false);
+        howTextPanel.setVisible(false);
+        backButtonSubPanel.setVisible(false);
     }
 
     public void createGameScreen() {
+        mainTextPanel.updateUI();
         titlePanel.setVisible(true);
         menuPanel.setVisible(false);
         mainTextPanel.setVisible(true);
@@ -128,25 +132,38 @@ public class MainFrame extends JFrame {
         displayPanel.setVisible(true);
         userRewardsPanel.setVisible(true);
         writeToUserRewardsPanel("");
-
+        backButtonSubPanel.setVisible(false);
+        aboutTextPanel.setVisible(false);
+        howTextPanel.setVisible(false);
     }
 
-    public void gameInfoScreen() {
-        mainTextPanel.remove(textArea);
-        mainTextPanel.remove(userNameTextField);
-        mainTextPanel.setBounds(200, 200, 500, 300);
-        mainTextPanel.add(textField);
-//        textField.add(aboutLabel);
+    public void gameAboutScreen() {
+
+        aboutTextPanel.setBounds(250, 200, 700, 300);
+        aboutTextPanel.add(textField);
+        aboutTextPanel.setVisible(true);
         titlePanel.setVisible(true);
         menuPanel.setVisible(false);
-        mainTextPanel.setVisible(true);
+        mainTextPanel.setVisible(false);
         subPanel.setVisible(false);
         backButtonSubPanel.setVisible(true);
         aboutLabel.setVisible(true);
-
-
     }
-    public void gameDirections(){
+
+    public void gameHowScreen() {
+
+        howTextPanel.setBounds(100, 200, 700, 300);
+        howTextPanel.add(textField);
+        howTextPanel.setVisible(true);
+        titlePanel.setVisible(true);
+        menuPanel.setVisible(false);
+        mainTextPanel.setVisible(false);
+        subPanel.setVisible(false);
+        backButtonSubPanel.setVisible(true);
+        aboutLabel.setVisible(true);
+    }
+
+    public void gameDirections() {
         mainTextPanel.setBounds(250, 300, 400, 100);
         mainTextPanel.setVisible(true);
         backButtonSubPanel.setVisible(true);
@@ -157,23 +174,26 @@ public class MainFrame extends JFrame {
         aboutLabel.setVisible(true);
     }
 
-    public void writeToUserRewardsPanel(String string){
+    public void writeToUserRewardsPanel(String string) {
         userRewardsText.setText("Winnings: ");
         userRewardsText.append(string);
+        userRewardsText.setFont(new Font("Arial", Font.BOLD, 15));
+        userRewardsText.setForeground(Color.RED);
+        userRewardsText.setBackground(Color.yellow);
     }
 
 
     public void writeToTextArea(String string) {
         textArea.setFont(new Font("Arial", Font.BOLD, 15));
+        textArea.setPreferredSize(new Dimension(400, 75));
         textArea.setBackground(Color.yellow);
         textArea.setText(string);
     }
 
     public void writeToTextField(String string) {
         textField.setFont(new Font("Arial", Font.BOLD, 15));
-        textField.setPreferredSize(new Dimension(500, 300));
-        textArea.setLineWrap(true);
-        textArea.setWrapStyleWord(true);
+        textField.setPreferredSize(new Dimension(700, 300));
+        textField.setBackground(Color.yellow);
         textField.setText(string);
     }
 
@@ -213,17 +233,16 @@ public class MainFrame extends JFrame {
         product.setFocusable(focusable);
         product.setForeground(foreground);
         product.setBackground(background);
-
         return product;
     }
 
-    private JPanel createJPanel(int x, int y, int width, int height, Color background, boolean visible ){
+    private JPanel createJPanel(int x, int y, int width, int height, Color background, boolean visible) {
         JPanel product = new JPanel();
-        product.setBounds(x,y,width,height);
+        product.setBounds(x, y, width, height);
         product.setBackground(background);
         product.setVisible(visible);
-
         return product;
     }
+
 
 }

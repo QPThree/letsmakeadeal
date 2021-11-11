@@ -9,8 +9,6 @@ import com.letsmakeadeal.User;
 import com.letsmakeadeal.UserFactory;
 
 import javax.swing.*;
-import java.awt.*;
-import java.awt.event.ActionEvent;
 
 import java.awt.event.ActionListener;
 import java.nio.file.Files;
@@ -25,7 +23,6 @@ class Host {
     private boolean isPlaying;
     private Prompter prompter = new Prompter(new Scanner(System.in));
     private MainFrame mainFrame = new MainFrame();
-
 
 
     // ---- CONSTRUCTORS ----
@@ -44,13 +41,6 @@ class Host {
         mainFrame.createGameScreen();
         greetUser();
 //        displayMenu();
-    }
-    public void processExitButton() {
-
-        //System.out.println( "Exit button clicked..." );
-        //CreditScreen cs = new CreditScreen();
-
-        //System.exit( 0 );
     }
 
     // ---- START GAME FLOW ----
@@ -72,7 +62,8 @@ class Host {
     private void makeOffer() {
         mainFrame.clearDisplayPanel();
         mainFrame.displayCurtain();
-        mainFrame.writeToTextArea("Would you like to risk your current winnings\n and choose another prize? \n\n Yes: [Let's Make a Deal]  No: [Walk Away]");
+        mainFrame.writeToTextArea("Would you like to risk your current winnings\n and choose another prize? " +
+                "\n\n Yes: [Let's Make a Deal]  No: [Walk Away]");
 
     }
 
@@ -119,6 +110,7 @@ class Host {
 
     private void setAllActionListeners() {
         mainFrame.aboutButton.addActionListener(e -> displayAboutUs());
+        mainFrame.howButton.addActionListener(e -> displayHow());
         mainFrame.startButton.addActionListener(e -> execute());
         mainFrame.exitButton.addActionListener(e -> System.exit(0));
         mainFrame.continueButton.addActionListener(e -> startGame());
@@ -134,8 +126,13 @@ class Host {
     }
 
     private void displayAboutUs() {
-        mainFrame.gameInfoScreen();
+        mainFrame.gameAboutScreen();
         mainFrame.writeToTextField(readFileFromResources("aboutus"));
+    }
+
+    private void displayHow() {
+        mainFrame.gameHowScreen();
+        mainFrame.writeToTextField(readFileFromResources("how-to"));
     }
 
     //might use in about us and how-to pages
@@ -148,7 +145,5 @@ class Host {
         }
         return aboutUs;
     }
-
-
 
 }
