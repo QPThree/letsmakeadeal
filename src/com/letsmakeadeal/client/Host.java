@@ -31,7 +31,7 @@ class Host {
     // ---- CONSTRUCTORS ----
 
     Host() {
-        this.display = new Display()
+        this.display = new Display();
 
 
         setAllActionListeners();
