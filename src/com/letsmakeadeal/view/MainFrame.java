@@ -11,7 +11,7 @@ public class MainFrame extends JFrame {
     public TextField userNameTextField = new TextField("Enter Name",20);
     private JTextArea textArea = new JTextArea(20, 20);
     private JTextArea userRewardsText = new JTextArea();
-    public JTextField textField = new JTextField();
+    public JTextArea textField = new JTextArea();
     public JButton dealButton, noDealButton, startButton, howButton, aboutButton, exitButton, continueButton, mainButton,backButton;
     private Container con;
     public JPanel titlePanel, menuPanel, subPanel, mainTextPanel, displayPanel, userRewardsPanel,backButtonSubPanel;
@@ -31,15 +31,7 @@ public class MainFrame extends JFrame {
         setAllPanels();
         // ---- LABELS ADDED TO PANELS ----
         titleLabel = new JLabel();
-        aboutLabel = new JLabel("This Project Created By:\n" +
-                "\n" +
-                " Jasmine Meade\n" +
-                " Zicheng Li\n" +
-                " Quentin Young\n" +
-                "\n" +
-                "\n" +
-                "While attending TLG through their Software Apprenticeships.\n" +
-                "Many thanks to all helping us on our path.\n");
+        aboutLabel = new JLabel();
         titlePanel.add(titleLabel);
         ImageIcon labelIcon = new ImageIcon("letsmakeadeal/resources/LetsMakeDeal.png");
         titleLabel.setIcon(labelIcon);
@@ -142,9 +134,9 @@ public class MainFrame extends JFrame {
     public void gameInfoScreen() {
         mainTextPanel.remove(textArea);
         mainTextPanel.remove(userNameTextField);
-        mainTextPanel.setBounds(250, 300, 400, 100);
-        //mainTextPanel.add(textField);
-        //textField.add(aboutLabel);
+        mainTextPanel.setBounds(200, 200, 500, 300);
+        mainTextPanel.add(textField);
+//        textField.add(aboutLabel);
         titlePanel.setVisible(true);
         menuPanel.setVisible(false);
         mainTextPanel.setVisible(true);
@@ -179,7 +171,7 @@ public class MainFrame extends JFrame {
 
     public void writeToTextField(String string) {
         textField.setFont(new Font("Arial", Font.BOLD, 15));
-        textField.setPreferredSize(new Dimension(400, 100));
+        textField.setPreferredSize(new Dimension(500, 300));
         textArea.setLineWrap(true);
         textArea.setWrapStyleWord(true);
         textField.setText(string);
